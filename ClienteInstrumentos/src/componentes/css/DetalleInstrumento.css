@@ -1,0 +1,92 @@
+/* Estilos para el contenedor principal del detalle del instrumento */
+.detalle-instrumento {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  flex-direction: row; /* Alinear elementos en una fila horizontal */
+}
+
+.imagenydescripcion {
+  flex: 1; /* Hace que este contenedor ocupe el 50% del espacio */
+  padding-right: 20px; /* Espacio entre los contenedores */
+}
+
+  .detalle-instrumento img {
+    max-width: 100%; /* Ajustar imagen al ancho del contenedor */
+}
+  
+  /* Estilos para la información del instrumento */
+  .instrumento-info {
+    flex: 1; /* Hace que este contenedor ocupe el 50% del espacio */
+    padding-left: 20px; /* Espacio entre los contenedores */
+    text-align: left;
+}
+  
+  /* Estilos para el título del instrumento */
+  .titulo-instrumento {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para la marca y modelo */
+  .marca {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .modelo {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el precio del instrumento */
+  .instrumento-precio {
+    font-size: 1.8rem;
+    font-weight: regular;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el costo de envío */
+  .costo-envio {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para la cantidad vendida */
+  .cantidad-vendida {
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para la descripción del instrumento */
+  .descripcion-instrumento {
+    width: 100%; /* Establece el ancho de la descripción al 50% del contenedor */
+    margin: 0 auto; /* Centra la descripción horizontalmente */
+  }
+  
+  /* Estilos para el botón "Agregar al Carrito" */
+  .btn-agregar-carrito {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px; /* Añade espacio arriba del botón */
+  }
+  
+  .btn-agregar-carrito:hover {
+    background-color: #0056b3;
+  }
+
+  .detalle-header {
+    background-color: rgb(250, 249, 252);
+  }
+  

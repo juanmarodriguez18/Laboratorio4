@@ -1,0 +1,129 @@
+import Instrumento from "../entidades/Instrumento";
+import CategoriaInstrumento from '../entidades/CategoriaInstrumento';
+
+const urlServer = 'http://localhost:8080/instrumentos';
+const urlCategorias = 'http://localhost:8080/categorias';
+
+export async function getInstrumentosJSONFetch(): Promise<Instrumento[]> {
+    try {
+        const response = await fetch(urlServer, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            mode: 'cors'
+        });
+        if (!response.ok) {
+            throw new Error('Error al obtener la lista de instrumentos');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error en getInstrumentosJSONFetch:', error);
+        throw new Error('Error al obtener la lista de instrumentos. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
+
+// Función para obtener todas las categorías desde el backend
+export async function getCategorias(): Promise<CategoriaInstrumento[]> {
+    try {
+        const response = await fetch(urlCategorias, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            mode: 'cors'
+        });
+        if (!response.ok) {
+            throw new Error('Error al obtener la lista de categorías');
+        }
+        const categorias = await response.json();
+        
+        // Devuelve directamente los datos recibidos
+        return categorias;
+    } catch (error) {
+        console.error('Error en getCategorias:', error);
+        throw new Error('Error al obtener la lista de categorías. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
+
+export async function getInstrumentoByIdFetch(id: number): Promise<Instrumento> {
+    const urlInstrumento = `${urlServer}/${id}`;
+    try {
+        const response = await fetch(urlInstrumento, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            mode: 'cors'
+        });
+        if (!response.ok) {
+            throw new Error('Error al obtener los detalles del instrumento');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error en getInstrumentoByIdFetch:', error);
+        throw new Error('Error al obtener los detalles del instrumento. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
+
+export async function crearInstrumento(instrumento: Instrumento): Promise<void> {
+    try {
+        const response = await fetch(urlServer, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(instrumento)
+        });
+        if (!response.ok) {
+            throw new Error('Error al crear el instrumento');
+        }
+    } catch (error) {
+        console.error('Error en crearInstrumento:', error);
+        throw new Error('Error al crear el instrumento. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
+
+export async function actualizarInstrumento(instrumento: Instrumento): Promise<void> {
+    const urlInstrumento = `${urlServer}/${instrumento.instrumento_id}`;
+    try {
+        const response = await fetch(urlInstrumento, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(instrumento)
+        });
+        if (!response.ok) {
+            throw new Error('Error al actualizar el instrumento');
+        }
+    } catch (error) {
+        console.error('Error en actualizarInstrumento:', error);
+        throw new Error('Error al actualizar el instrumento. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
+
+export async function borrarInstrumento(id: number): Promise<void> {
+    const urlInstrumento = `${urlServer}/${id}`;
+    try {
+        const response = await fetch(urlInstrumento, {
+            method: 'DELETE',
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Error al borrar el instrumento');
+        }
+    } catch (error) {
+        console.error('Error en borrarInstrumento:', error);
+        throw new Error('Error al borrar el instrumento. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
+
+

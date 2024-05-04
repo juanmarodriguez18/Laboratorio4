@@ -1,0 +1,56 @@
+.lista-instrumentos {
+    display: flex;
+    flex-direction: column; 
+  }
+  
+  .instrumento {
+    display: flex; 
+    border-bottom: 1px solid #ccc; 
+    padding: 10px 0; 
+  }
+
+  .detalle-instrumento {
+    display: flex; 
+    border-bottom: 1px solid #ccc; 
+    padding: 10px 0;
+}  
+  .instrumento img {
+    width: 200px; 
+    height: 200px; 
+    margin-right: 20px; 
+  }
+
+  .detalle-instrumento img {
+    width: 400px; 
+    height: 400px; 
+    margin-right: 20px; 
+  }
+  
+  .instrumento-info {
+    flex: 1; 
+  }
+  
+  .instrumento h3 {
+    margin-top: 0; 
+  }
+  
+  .instrumento p {
+    margin: 5px 0; 
+  }
+
+  .envio-gratis {
+    color: green;
+  }
+
+  .costo-envio {
+    color:rgb(248, 152, 9);
+  }
+
+  .instrumento-precio {
+    font-size: 24px;
+  }
+
+  .titulo-instrumento{
+    font-weight: normal;
+    font-size: 20px;
+  }  
