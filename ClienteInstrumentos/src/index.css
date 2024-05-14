@@ -26,13 +26,34 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  justify-content: center;
+  align-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+main > div {
+  width: 100%;
+  max-width: 1200px; /* Puedes ajustar este valor según tus necesidades */
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
 }
 
 button {

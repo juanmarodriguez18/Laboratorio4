@@ -3,7 +3,6 @@ import Instrumento from '../entidades/Instrumento';
 import './css/ListaInstrumentos.css'; // Importa los estilos
 import { getInstrumentosJSONFetch } from '../servicios/FuncionesInstrumento'; // Importa la función
 import ItemInstrumento from './ItemInstrumento';
-import Encabezado from './Encabezado';
 
 function ListaInstrumentos() {
   const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
@@ -23,7 +22,6 @@ function ListaInstrumentos() {
 
   return (
     <div className="lista-instrumentos">
-      <Encabezado></Encabezado>
       {instrumentos.map((instrumento) => (
         <div key={instrumento.instrumento_id}>
           <ItemInstrumento

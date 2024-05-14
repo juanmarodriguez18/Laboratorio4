@@ -1,0 +1,98 @@
+import Instrumento from '../entidades/Instrumento.ts';
+import PedidoDetalle from '../entidades/PedidoDetalle.ts';
+import { useCarrito } from '../hooks/useCarrito.tsx';
+import { guardarPedidoEnBD } from '../servicios/FuncionesInstrumento.ts'; // Importa la función para guardar el pedido en la base de datos
+import './css/Carrito.css';
+
+interface CartItemProps {
+  instrumento: Instrumento;
+  cantidad: number;
+  onRemove: () => void;
+}
+
+function CartItem({ instrumento, cantidad, onRemove }: CartItemProps) {
+  return (
+    <div key={instrumento.instrumento_id}>
+      <span>
+        <div>
+          <strong>{instrumento.instrumento}</strong> - ${instrumento.precio}
+        </div>
+        <img width={50} height={50} src={instrumento.imagen} alt={instrumento.instrumento} />
+        <div>
+          <b>{cantidad} {cantidad === 1 ? 'unidad' : 'unidades'} </b>
+        </div>
+        <button onClick={onRemove}>Eliminar</button>
+      </span>
+      <hr />
+    </div>
+  );
+}
+
+export function Carrito() {
+  const { cart, removeCarrito, limpiarCarrito, totalPedido } = useCarrito();
+
+  const mostrarCarritoJSON = () => {
+    console.log(cart);
+  };
+
+  const confirmarCompra = async () => {
+    if (cart.length === 0) {
+      alert('El carrito está vacío. Por favor, añade productos antes de confirmar la compra.');
+      return;
+    }
+
+    try {
+      await guardarPedidoEnBD(cart as PedidoDetalle[]);
+      alert('Pedido confirmado. Se ha guardado en la base de datos.');
+      limpiarCarrito(); // Limpia el carrito después de confirmar la compra
+    } catch (error) {
+      console.error('Error al guardar el pedido en la base de datos:', error);
+      alert('Ocurrió un error al confirmar la compra. Inténtalo de nuevo más tarde.');
+    }
+  };
+
+  return (
+    <>
+      <aside className='cart'>
+        <ul>
+          {cart.map(({ instrumento, cantidad }) => (
+            <CartItem
+              key={instrumento.instrumento_id}
+              instrumento={instrumento}
+              cantidad={cantidad}
+              onRemove={() => removeCarrito(instrumento)}
+            />
+          ))}
+        </ul>
+        <div>
+          <h3>${totalPedido}</h3>
+        </div>
+
+        <button onClick={limpiarCarrito} title='Limpiar Todo'>
+          <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' fill='none' strokeLinecap='round' strokeLinejoin='round'>
+            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+            <path d='M6 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
+            <path d='M17 17a2 2 0 1 0 2 2' />
+            <path d='M17 17h-11v-11' />
+            <path d='M9.239 5.231l10.761 .769l-1 7h-2m-4 0h-7' />
+            <path d='M3 3l18 18' />
+          </svg>
+        </button>
+        <br />
+        <button onClick={mostrarCarritoJSON}>
+          MOSTRAR CART JSON
+        </button>
+        <br />
+        <button onClick={confirmarCompra}>
+          Confirmar Compra
+        </button>
+      </aside>
+    </>
+  );
+}
+
+
+
+
+
+

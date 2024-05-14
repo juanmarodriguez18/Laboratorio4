@@ -1,6 +1,7 @@
 import React from 'react';
 import camionIcono from '../../img/camion.png';
 import { Link } from 'react-router-dom';
+import { useCarrito } from '../hooks/useCarrito';
 
 interface InstrumentoProps {
   instrumento: {
@@ -18,6 +19,14 @@ interface InstrumentoProps {
 
 
 const ItemInstrumento: React.FC<InstrumentoProps> = ({ instrumento }) => {
+  const { addCarrito } = useCarrito(); // Accede al contexto del carrito y a la función agregarAlCarrito
+
+  const handleAgregarAlCarrito = () => {
+    if (instrumento) {
+      addCarrito(instrumento); // Agrega el instrumento al carrito usando la función del contexto
+      alert('Instrumento agregado al carrito'); // Opcional: muestra una alerta o mensaje de confirmación
+    }
+  };
   
   return (
     <div className="instrumento">
@@ -36,6 +45,7 @@ const ItemInstrumento: React.FC<InstrumentoProps> = ({ instrumento }) => {
         <Link to={`/instrumento/${instrumento.instrumento_id}`}>
           <button>Ver Detalle</button>
         </Link>
+        <button className="btn-agregar-carrito" onClick={handleAgregarAlCarrito}>Agregar al Carrito</button>
       </div>
     </div>
   );

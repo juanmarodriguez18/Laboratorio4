@@ -1,9 +1,11 @@
 package org.example.instrumentosbackspring.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Instrumento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

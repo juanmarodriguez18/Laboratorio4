@@ -4,11 +4,13 @@ import Instrumento from '../entidades/Instrumento';
 import { getInstrumentoByIdFetch } from '../servicios/FuncionesInstrumento';
 import camionIcono from '../../img/camion.png';
 import './css/DetalleInstrumento.css';
-import Encabezado from './Encabezado';
+import { useCarrito } from '../hooks/useCarrito';
 
 function DetalleInstrumento() {
   const { id } = useParams<{ id?: string }>();
   const [instrumento, setInstrumento] = useState<Instrumento | null>(null);
+  const { addCarrito } = useCarrito(); // Accede al contexto del carrito y a la función agregarAlCarrito
+
 
   useEffect(() => {
     if (id) {
@@ -31,9 +33,16 @@ function DetalleInstrumento() {
     }
   }, [id]);
 
+  const handleAgregarAlCarrito = () => {
+    if (instrumento) {
+      addCarrito(instrumento); // Agrega el instrumento al carrito usando la función del contexto
+      alert('Instrumento agregado al carrito'); // Opcional: muestra una alerta o mensaje de confirmación
+    }
+  };
+
+
   return (
     <div>
-      <Encabezado></Encabezado>
       {instrumento ? (
         <div className="detalle-instrumento">
           <div className="imagenydescripcion">
@@ -55,7 +64,7 @@ function DetalleInstrumento() {
               <p className="costo-envio">Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}</p>
             )}
             
-            <button className="btn-agregar-carrito">Agregar al Carrito</button>
+            <button className="btn-agregar-carrito" onClick={handleAgregarAlCarrito}>Agregar al Carrito</button>
           </div>
         </div>
       ) : (

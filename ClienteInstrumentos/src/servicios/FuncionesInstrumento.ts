@@ -1,8 +1,10 @@
 import Instrumento from "../entidades/Instrumento";
 import CategoriaInstrumento from '../entidades/CategoriaInstrumento';
+import PedidoDetalle from "../entidades/PedidoDetalle";
 
 const urlServer = 'http://localhost:8080/instrumentos';
 const urlCategorias = 'http://localhost:8080/categorias';
+const urlPedidos = 'http://localhost:8080/guardar-pedido';
 
 export async function getInstrumentosJSONFetch(): Promise<Instrumento[]> {
     try {
@@ -125,5 +127,27 @@ export async function borrarInstrumento(id: number): Promise<void> {
         throw new Error('Error al borrar el instrumento. Por favor, inténtalo de nuevo más tarde.');
     }
 }
+
+// Función para guardar un pedido en la base de datos
+export async function guardarPedidoEnBD(detallesPedido: PedidoDetalle[]): Promise<void> {
+    try {
+        const response = await fetch(urlPedidos, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(detallesPedido) // Enviar directamente el array de PedidoDetalle
+        });
+        if (!response.ok) {
+            throw new Error('Error al guardar el pedido');
+        }
+    } catch (error) {
+        console.error('Error en guardarPedidoEnBD:', error);
+        throw new Error('Error al guardar el pedido. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
+
+
 
 

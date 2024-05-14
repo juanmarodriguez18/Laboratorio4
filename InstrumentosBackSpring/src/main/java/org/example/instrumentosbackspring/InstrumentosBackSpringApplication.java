@@ -10,7 +10,7 @@ public class InstrumentosBackSpringApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(InstrumentosBackSpringApplication.class, args);
-        System.out.println("Backend funcionando...");
+        System.out.println("Backend funcionando en : http://localhost:8080/");
     }
 
 

@@ -1,13 +1,11 @@
 import React from 'react';
 import Slider from './Slider';
 import './css/Home.css';
-import Encabezado from './Encabezado';
 
 const Home: React.FC = () => {
   return (
     <div>
       <div className="home-container">
-      <Encabezado></Encabezado>
         <h2>Musical Hendrix</h2>
         <p>
           Musical Hendrix es una tienda de instrumentos musicales con más de 15 años de experiencia.

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Instrumento from '../entidades/Instrumento';
 import { getInstrumentosJSONFetch, borrarInstrumento } from '../servicios/FuncionesInstrumento';
-import Encabezado from './Encabezado';
 import './css/GrillaInstrumentos.css'
 
 function GrillaInstrumentos() {
@@ -47,7 +46,6 @@ function GrillaInstrumentos() {
         : instrumentos;
     return (
         <>
-            <Encabezado></Encabezado>
             <div className="container text-center">
                 <br />
                 <a className="btn btn-primary" href={`/formulario/0`}>Nuevo</a>

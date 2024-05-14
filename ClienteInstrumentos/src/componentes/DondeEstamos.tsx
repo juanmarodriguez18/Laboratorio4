@@ -1,10 +1,8 @@
 import React from 'react';
-import Encabezado from './Encabezado';
 
 const DondeEstamos: React.FC = () => {
   return (
     <div>
-      <Encabezado></Encabezado>
       <h2>Ubicación</h2>
       <iframe
         title="Ubicacion"

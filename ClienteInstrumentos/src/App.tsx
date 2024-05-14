@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from 'react-router-dom';
+import ListaInstrumentos from './componentes/ListaInstrumentos';
+import DetalleInstrumento from './componentes/DetalleInstrumento';
+import Home from './componentes/Home';
+import DondeEstamos from './componentes/DondeEstamos';
+import Productos from './componentes/Productos';
+import InstrumentoFormulario from './componentes/InstrumentoForm';
+import GrillaInstrumentos from './componentes/GrillaInstrumentos';
+import { Carrito } from './componentes/Carrito';
+import Encabezado from './componentes/Encabezado';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Encabezado />
+      <main>
+        <Routes>
+          <Route index element={<ListaInstrumentos />} />
+          <Route path="/instrumentos" element={<ListaInstrumentos />} />
+          <Route path="/instrumento/:id" element={<DetalleInstrumento />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/dondeestamos" element={<DondeEstamos />} />
+          <Route path="/productos" element={<Productos />} />
+          <Route path="/formulario/:instrumento_id" element={<InstrumentoFormulario />} />
+          <Route path="/grilla" element={<GrillaInstrumentos />} />
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/app" element={<ListaInstrumentos />} />
+          <Route path="*" element={<ListaInstrumentos />} />
+        </Routes>
+      </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
+
