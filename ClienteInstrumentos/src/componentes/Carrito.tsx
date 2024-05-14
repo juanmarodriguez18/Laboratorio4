@@ -1,4 +1,3 @@
-import React from 'react';
 import Instrumento from '../entidades/Instrumento.ts';
 import PedidoDetalle from '../entidades/PedidoDetalle.ts';
 import { useCarrito } from '../hooks/useCarrito.tsx';
