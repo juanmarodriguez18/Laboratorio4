@@ -1,7 +1,7 @@
 import Instrumento from '../entidades/Instrumento.ts';
 import PedidoDetalle from '../entidades/PedidoDetalle.ts';
 import { useCarrito } from '../hooks/useCarrito.tsx';
-import { guardarPedidoEnBD } from '../servicios/FuncionesInstrumento.ts'; // Importa la función para guardar el pedido en la base de datos
+import { guardarPedidoEnBD, recuperarIdPedido } from '../servicios/FuncionesInstrumento.ts'; // Importa la función para guardar el pedido en la base de datos
 import './css/Carrito.css';
 
 interface CartItemProps {
@@ -37,19 +37,28 @@ export function Carrito() {
 
   const confirmarCompra = async () => {
     if (cart.length === 0) {
-      alert('El carrito está vacío. Por favor, añade productos antes de confirmar la compra.');
-      return;
+        alert('El carrito está vacío. Por favor, añade productos antes de confirmar la compra.');
+        return;
     }
 
     try {
-      await guardarPedidoEnBD(cart as PedidoDetalle[]);
-      alert('Pedido confirmado. Se ha guardado en la base de datos.');
-      limpiarCarrito(); // Limpia el carrito después de confirmar la compra
+        // Guardar el pedido
+        await guardarPedidoEnBD(cart as PedidoDetalle[]);
+        
+        // Obtener el ID del último pedido guardado
+        const pedidoId = await recuperarIdPedido();
+
+        // Mostrar el mensaje de éxito con el ID del pedido
+        alert(`El pedido con id: ${pedidoId} se guardó correctamente.`);
+        
+        // Limpiar el carrito después de confirmar la compra
+        limpiarCarrito(); 
     } catch (error) {
-      console.error('Error al guardar el pedido en la base de datos:', error);
-      alert('Ocurrió un error al confirmar la compra. Inténtalo de nuevo más tarde.');
+        console.error('Error al confirmar la compra:', error);
+        alert('Ocurrió un error al confirmar la compra. Inténtalo de nuevo más tarde.');
     }
-  };
+};
+
 
   return (
     <>

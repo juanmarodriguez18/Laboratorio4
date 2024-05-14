@@ -7,12 +7,14 @@ import org.example.instrumentosbackspring.Repositories.InstrumentoRepository;
 import org.example.instrumentosbackspring.Repositories.PedidoDetalleRepository;
 import org.example.instrumentosbackspring.Repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 public class PedidoController {
@@ -47,6 +49,17 @@ public class PedidoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    @GetMapping("/pedidos/ultimo")
+    public Pedido getUltimoPedido() {
+        List<Pedido> pedidos = pedidoRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        if (!pedidos.isEmpty()) {
+            return pedidos.get(0); // Devuelve el primer (último) pedido de la lista ordenada
+        } else {
+            throw new NoSuchElementException("No se encontraron pedidos");
+        }
+    }
+
 
     @PostMapping("/pedidos")
     public ResponseEntity<Pedido> createPedido(@RequestBody Pedido pedido) {

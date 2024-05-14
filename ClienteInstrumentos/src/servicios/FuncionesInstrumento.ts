@@ -5,6 +5,7 @@ import PedidoDetalle from "../entidades/PedidoDetalle";
 const urlServer = 'http://localhost:8080/instrumentos';
 const urlCategorias = 'http://localhost:8080/categorias';
 const urlPedidos = 'http://localhost:8080/guardar-pedido';
+const urlUltimoPedido = 'http://localhost:8080/pedidos/ultimo';
 
 export async function getInstrumentosJSONFetch(): Promise<Instrumento[]> {
     try {
@@ -147,6 +148,41 @@ export async function guardarPedidoEnBD(detallesPedido: PedidoDetalle[]): Promis
         throw new Error('Error al guardar el pedido. Por favor, inténtalo de nuevo más tarde.');
     }
 }
+
+// Función para obtener el id del último pedido
+export async function recuperarIdPedido(): Promise<number> {
+    try {
+        const response = await fetch(urlUltimoPedido, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al recuperar el último pedido');
+        }
+
+        // Procesar la respuesta del servidor
+        const responseData = await response.json();
+
+        // Verificar si la respuesta contiene el ID del último pedido
+        if (!responseData.hasOwnProperty('id')) {
+            throw new Error('El servidor no devolvió el ID del último pedido');
+        }
+
+        // Extraer el ID del último pedido de la respuesta
+        const ultimoPedidoId = responseData.id;
+
+        // Devolver el ID del último pedido
+        return ultimoPedidoId;
+    } catch (error) {
+        console.error('Error en recuperarIdPedido:', error);
+        throw new Error('Error al recuperar el ID del último pedido. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
+
 
 
 
