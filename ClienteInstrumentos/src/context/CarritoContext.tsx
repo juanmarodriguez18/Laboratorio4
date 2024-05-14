@@ -14,6 +14,7 @@ interface CartContextType {
   removeCarrito: (product: Instrumento) => void;
   removeItemCarrito: (product: Instrumento) => void;
   limpiarCarrito: () => void;
+  updateCarrito: (instrumento: Instrumento, cantidad: number) => void;
   totalPedido?: number;
 }
 
@@ -24,6 +25,7 @@ export const CartContext = createContext<CartContextType>({
   removeCarrito: () => {},
   removeItemCarrito: () => {},
   limpiarCarrito: () => {},
+  updateCarrito: () => {},
   totalPedido: 0
 });
 
@@ -55,6 +57,17 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
       setCart(prevCart => [...prevCart, { instrumento: product, cantidad: 1 }]);
     }
     calcularTotalCarrito();
+  };
+
+  const updateCarrito = (instrumento: Instrumento, cantidad: number) => {
+    setCart((prevCarrito) => {
+      if (cantidad <= 0) {
+        return prevCarrito.filter((item) => item.instrumento.instrumento_id !== instrumento.instrumento_id);
+      }
+      return prevCarrito.map((item) =>
+        item.instrumento.instrumento_id === instrumento.instrumento_id ? { ...item, cantidad } : item
+      );
+    });
   };
 
   const removeCarrito = (product: Instrumento) => {
@@ -95,7 +108,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
 
 
   return (
-    <CartContext.Provider value={{ cart, addCarrito, limpiarCarrito, removeCarrito, removeItemCarrito, totalPedido }}>
+    <CartContext.Provider value={{ cart, addCarrito, updateCarrito, limpiarCarrito, removeCarrito, removeItemCarrito, totalPedido }}>
       {children}
     </CartContext.Provider>
   );

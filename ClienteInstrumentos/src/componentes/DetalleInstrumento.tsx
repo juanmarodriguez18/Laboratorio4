@@ -9,8 +9,8 @@ import { useCarrito } from '../hooks/useCarrito';
 function DetalleInstrumento() {
   const { id } = useParams<{ id?: string }>();
   const [instrumento, setInstrumento] = useState<Instrumento | null>(null);
-  const { addCarrito } = useCarrito(); // Accede al contexto del carrito y a la función agregarAlCarrito
-
+  const { addCarrito, updateCarrito } = useCarrito(); // Accede al contexto del carrito y a la función actualizar carrito
+  const [cantidad, setCantidad] = useState(0);
 
   useEffect(() => {
     if (id) {
@@ -36,10 +36,30 @@ function DetalleInstrumento() {
   const handleAgregarAlCarrito = () => {
     if (instrumento) {
       addCarrito(instrumento); // Agrega el instrumento al carrito usando la función del contexto
-      alert('Instrumento agregado al carrito'); // Opcional: muestra una alerta o mensaje de confirmación
+      setCantidad(1);
     }
   };
 
+  const handleIncrementarCantidad = () => {
+    setCantidad(cantidad + 1);
+    if (instrumento) {
+      updateCarrito(instrumento, cantidad + 1); // Actualiza la cantidad en el carrito
+    }
+  };
+
+  const handleDecrementarCantidad = () => {
+    if (cantidad > 1) {
+      setCantidad(cantidad - 1);
+      if (instrumento) {
+        updateCarrito(instrumento, cantidad - 1); // Actualiza la cantidad en el carrito
+      }
+    } else {
+      setCantidad(0);
+      if (instrumento) {
+        updateCarrito(instrumento, 0); // Elimina el instrumento del carrito si la cantidad llega a 0
+      }
+    }
+  };
 
   return (
     <div>
@@ -63,8 +83,16 @@ function DetalleInstrumento() {
             ) : (
               <p className="costo-envio">Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}</p>
             )}
-            
-            <button className="btn-agregar-carrito" onClick={handleAgregarAlCarrito}>Agregar al Carrito</button>
+
+            {cantidad === 0 ? (
+              <button className="btn-agregar-carrito" onClick={handleAgregarAlCarrito}>Agregar al Carrito</button>
+            ) : (
+              <div className="cantidad-carrito">
+                <button className="btn-decrementar" onClick={handleDecrementarCantidad}>-</button>
+                <span>{cantidad}</span>
+                <button className="btn-incrementar" onClick={handleIncrementarCantidad}>+</button>
+              </div>
+            )}
           </div>
         </div>
       ) : (
@@ -75,10 +103,3 @@ function DetalleInstrumento() {
 }
 
 export default DetalleInstrumento;
-
-
-
-
-
-
-

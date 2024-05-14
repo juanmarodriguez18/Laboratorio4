@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import camionIcono from '../../img/camion.png';
 import { Link } from 'react-router-dom';
 import { useCarrito } from '../hooks/useCarrito';
+import './css/DetalleInstrumento.css';
+
 
 interface InstrumentoProps {
   instrumento: {
@@ -19,18 +21,40 @@ interface InstrumentoProps {
 
 
 const ItemInstrumento: React.FC<InstrumentoProps> = ({ instrumento }) => {
-  const { addCarrito } = useCarrito(); // Accede al contexto del carrito y a la función agregarAlCarrito
+  const { addCarrito, updateCarrito } = useCarrito(); // Accede al contexto del carrito y a la función agregarAlCarrito
+  const [cantidad, setCantidad] = useState(0);
 
   const handleAgregarAlCarrito = () => {
     if (instrumento) {
       addCarrito(instrumento); // Agrega el instrumento al carrito usando la función del contexto
-      alert('Instrumento agregado al carrito'); // Opcional: muestra una alerta o mensaje de confirmación
+      setCantidad(1);
+    }
+  };
+
+  const handleIncrementarCantidad = () => {
+    setCantidad(cantidad + 1);
+    if (instrumento) {
+      updateCarrito(instrumento, cantidad + 1); // Actualiza la cantidad en el carrito
+    }
+  };
+
+  const handleDecrementarCantidad = () => {
+    if (cantidad > 1) {
+      setCantidad(cantidad - 1);
+      if (instrumento) {
+        updateCarrito(instrumento, cantidad - 1); // Actualiza la cantidad en el carrito
+      }
+    } else {
+      setCantidad(0);
+      if (instrumento) {
+        updateCarrito(instrumento, 0); // Elimina el instrumento del carrito si la cantidad llega a 0
+      }
     }
   };
   
   return (
     <div className="instrumento">
-      <img src={instrumento.imagen} alt={instrumento.instrumento}/>
+      <img src={instrumento.imagen} alt={instrumento.instrumento} />
       <div className="instrumento-info">
         <p className="titulo-instrumento">{instrumento.instrumento}</p>
         <p className="instrumento-precio">${instrumento.precio}</p>
@@ -45,7 +69,17 @@ const ItemInstrumento: React.FC<InstrumentoProps> = ({ instrumento }) => {
         <Link to={`/instrumento/${instrumento.instrumento_id}`}>
           <button>Ver Detalle</button>
         </Link>
-        <button className="btn-agregar-carrito" onClick={handleAgregarAlCarrito}>Agregar al Carrito</button>
+        <div className="btn-container">
+          {cantidad === 0 ? (
+            <button className="btn-agregar-carrito" onClick={handleAgregarAlCarrito}>Agregar al Carrito</button>
+          ) : (
+            <div className="cantidad-carrito">
+              <button className="btn-decrementar" onClick={handleDecrementarCantidad}>-</button>
+              <span>{cantidad}</span>
+              <button className="btn-incrementar" onClick={handleIncrementarCantidad}>+</button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -89,4 +89,26 @@
   .detalle-header {
     background-color: rgb(250, 249, 252);
   }
+
+  .cantidad-carrito {
+    display: flex;
+    align-items: center;
+  }
+  
+  .btn-agregar-carrito,
+  .cantidad-carrito {
+    margin-top: 10px;
+  }
+  
+  .btn-decrementar,
+  .btn-incrementar {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  span {
+    margin: 0 10px;
+  }
   
