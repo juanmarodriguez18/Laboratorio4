@@ -1,6 +1,8 @@
 import Instrumento from "../entidades/Instrumento";
 import CategoriaInstrumento from '../entidades/CategoriaInstrumento';
 import PedidoDetalle from "../entidades/PedidoDetalle";
+import Pedido from "../entidades/Pedido";
+import PreferenceMP from "../entidades/mercadopago/PreferenceMP";
 
 const urlServer = 'http://localhost:8080/instrumentos';
 const urlCategorias = 'http://localhost:8080/categorias';
@@ -180,6 +182,46 @@ export async function recuperarIdPedido(): Promise<number> {
     } catch (error) {
         console.error('Error en recuperarIdPedido:', error);
         throw new Error('Error al recuperar el ID del último pedido. Por favor, inténtalo de nuevo más tarde.');
+    }
+}
+
+/*export async function createPreferenceMP(pedido?: Pedido){
+    let urlServer = 'http://localhost:8080/create-preference-mp';
+    let method:string = 'POST';
+    const response = await fetch(urlServer, {
+        "method": method,
+        "body": JSON.stringify(pedido),
+        "headers": {
+            "Content-Type": 'application/json'
+        }
+    });
+    return await response.json() as PreferenceMP;
+}*/
+
+export async function createPreferenceMP(pedido: Pedido) {
+    const response = await fetch('http://localhost:8080/create-preference-mp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(pedido),
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    return data;
+}
+
+export async function getPreferenceMP(pedido: Pedido) {
+    try {
+        const preference = await createPreferenceMP(pedido);
+        console.log(preference);
+    } catch (error) {
+        console.error('Error creating preference:', error);
     }
 }
 

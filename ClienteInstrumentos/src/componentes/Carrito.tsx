@@ -2,6 +2,7 @@ import Instrumento from '../entidades/Instrumento.ts';
 import PedidoDetalle from '../entidades/PedidoDetalle.ts';
 import { useCarrito } from '../hooks/useCarrito.tsx';
 import { guardarPedidoEnBD, recuperarIdPedido } from '../servicios/FuncionesInstrumento.ts';
+import CheckoutMP from './CheckoutMP.tsx';
 import './css/Carrito.css';
 
 interface CartItemProps {
@@ -92,6 +93,7 @@ export function Carrito() {
         <button className="confirmar" onClick={confirmarCompra}>
           Confirmar Compra
         </button>
+        <CheckoutMP montoCarrito={totalPedido}></CheckoutMP>
       </aside>
     </>
   );
