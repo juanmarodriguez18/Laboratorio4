@@ -16,7 +16,7 @@ function CheckoutMP ({montoCarrito = 0}) {
         }
     }
     // es la Public Key se utiliza generalmente en el frontend
-    initMercadoPago('TEST-0f1247a0-d436-4430-b0b7-d6fb3d76ff5e', {locale: 'es-AR'});
+    initMercadoPago('TEST-18c092bd-f68f-451d-a689-08da4f78d7d3', {locale: 'es-AR'});
 
     //redirectMode es optativo y puede ser self, blank o modal
     return (

@@ -2,7 +2,6 @@ import Instrumento from "../entidades/Instrumento";
 import CategoriaInstrumento from '../entidades/CategoriaInstrumento';
 import PedidoDetalle from "../entidades/PedidoDetalle";
 import Pedido from "../entidades/Pedido";
-import PreferenceMP from "../entidades/mercadopago/PreferenceMP";
 
 const urlServer = 'http://localhost:8080/instrumentos';
 const urlCategorias = 'http://localhost:8080/categorias';
@@ -184,19 +183,6 @@ export async function recuperarIdPedido(): Promise<number> {
         throw new Error('Error al recuperar el ID del último pedido. Por favor, inténtalo de nuevo más tarde.');
     }
 }
-
-/*export async function createPreferenceMP(pedido?: Pedido){
-    let urlServer = 'http://localhost:8080/create-preference-mp';
-    let method:string = 'POST';
-    const response = await fetch(urlServer, {
-        "method": method,
-        "body": JSON.stringify(pedido),
-        "headers": {
-            "Content-Type": 'application/json'
-        }
-    });
-    return await response.json() as PreferenceMP;
-}*/
 
 export async function createPreferenceMP(pedido: Pedido) {
     const response = await fetch('http://localhost:8080/create-preference-mp', {

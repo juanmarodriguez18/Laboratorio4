@@ -13,7 +13,7 @@ java {
 
 repositories {
     mavenCentral()
-    maven { url 'https://maven.mercadopago.com/' }
+    maven { url 'https://repository.mercadopago.com/release' }
 }
 
 dependencies {
@@ -23,7 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'com.mercadopago:sdk-java:2.1.23' // Dependencia de Mercado Pago
+    implementation 'com.mercadopago:sdk-java:2.1.17' // Dependencia de Mercado Pago
 
 }
 

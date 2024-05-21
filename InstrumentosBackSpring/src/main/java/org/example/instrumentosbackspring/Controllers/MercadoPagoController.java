@@ -22,7 +22,7 @@ public class MercadoPagoController {
 
     // Configurar el token de acceso una vez en un bloque estático
     static {
-        MercadoPagoConfig.setAccessToken("TEST-4192333110042132-051915-1e27c6848279dbc710c03339e377494b-101459222");
+        MercadoPagoConfig.setAccessToken("TEST-4488778002720771-051909-30faf5f3ba97f1e7454945c6373a3b77-101459222");
     }
 
     public PreferenceMP getPreferenciaIdMercadoPago(Pedido pedido) {
