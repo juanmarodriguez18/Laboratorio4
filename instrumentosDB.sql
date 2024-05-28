@@ -85,7 +85,7 @@ CREATE TABLE `pedido` (
   `fecha_pedido` date NOT NULL,
   `total_pedido` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES (5,'2024-04-24',100.50),(6,'2024-05-13',3035.00),(7,'2024-05-13',0.00),(8,'2024-05-13',17000.00),(9,'2024-05-13',5025.00),(10,'2024-05-13',8150.00),(11,'2024-05-13',22750.00),(12,'2024-05-13',17500.00),(13,'2024-05-13',19710.00),(14,'2024-05-13',18350.00),(15,'2024-05-13',2450.00),(16,'2024-05-13',2450.00),(17,'2024-05-13',2775.00),(18,'2024-05-13',2775.00),(19,'2024-05-13',3035.00),(20,'2024-05-13',3035.00),(21,'2024-05-13',3675.00),(22,'2024-05-14',24200.00),(23,'2024-05-14',57350.00),(24,'2024-05-14',40435.00);
+INSERT INTO `pedido` VALUES (5,'2024-04-24',100.50),(6,'2024-05-13',3035.00),(7,'2024-05-13',0.00),(8,'2024-05-13',17000.00),(9,'2024-05-13',5025.00),(10,'2024-05-13',8150.00),(11,'2024-05-13',22750.00),(12,'2024-05-13',17500.00),(13,'2024-05-13',19710.00),(14,'2024-05-13',18350.00),(15,'2024-05-13',2450.00),(16,'2024-05-13',2450.00),(17,'2024-05-13',2775.00),(18,'2024-05-13',2775.00),(19,'2024-05-13',3035.00),(20,'2024-05-13',3035.00),(21,'2024-05-13',3675.00),(22,'2024-05-14',24200.00),(23,'2024-05-14',57350.00),(24,'2024-05-14',40435.00),(25,'2024-05-19',48985.00),(26,'2024-05-19',585.00),(27,'2024-05-19',3035.00);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +115,7 @@ CREATE TABLE `pedido_detalle` (
   KEY `instrumento_id` (`instrumento_id`),
   CONSTRAINT `pedido_detalle_ibfk_1` FOREIGN KEY (`pedido_id`) REFERENCES `pedido` (`id`),
   CONSTRAINT `pedido_detalle_ibfk_2` FOREIGN KEY (`instrumento_id`) REFERENCES `instrumento` (`instrumento_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,8 +124,36 @@ CREATE TABLE `pedido_detalle` (
 
 LOCK TABLES `pedido_detalle` WRITE;
 /*!40000 ALTER TABLE `pedido_detalle` DISABLE KEYS */;
-INSERT INTO `pedido_detalle` VALUES (1,3,5,1),(3,1,6,1),(4,1,6,2),(5,1,6,3),(6,1,8,6),(7,1,9,1),(8,1,9,2),(9,1,9,4),(10,1,10,7),(11,1,10,8),(12,2,10,9),(13,2,11,1),(14,1,11,5),(15,1,11,6),(16,1,12,6),(17,1,12,7),(18,1,13,1),(19,1,13,3),(20,1,13,6),(21,1,14,5),(22,1,14,6),(23,1,14,7),(24,1,15,1),(25,1,16,1),(26,1,17,1),(27,1,17,2),(28,1,18,1),(29,1,18,2),(30,1,19,1),(31,1,19,2),(32,1,19,3),(33,1,20,1),(34,1,20,2),(35,1,20,3),(36,1,21,2),(37,1,21,10),(38,1,21,11),(39,5,22,1),(40,4,22,2),(41,4,22,5),(42,6,22,7),(43,5,22,10),(44,4,23,8),(45,1,23,10),(46,2,23,11),(47,5,23,19),(48,1,24,1),(49,1,24,3),(50,1,24,2),(51,1,24,5),(52,1,24,4),(53,1,24,6),(54,1,24,7),(55,1,24,8),(56,1,24,9),(57,1,24,10),(58,1,24,11),(59,1,24,19);
+INSERT INTO `pedido_detalle` VALUES (1,3,5,1),(3,1,6,1),(4,1,6,2),(5,1,6,3),(6,1,8,6),(7,1,9,1),(8,1,9,2),(9,1,9,4),(10,1,10,7),(11,1,10,8),(12,2,10,9),(13,2,11,1),(14,1,11,5),(15,1,11,6),(16,1,12,6),(17,1,12,7),(18,1,13,1),(19,1,13,3),(20,1,13,6),(21,1,14,5),(22,1,14,6),(23,1,14,7),(24,1,15,1),(25,1,16,1),(26,1,17,1),(27,1,17,2),(28,1,18,1),(29,1,18,2),(30,1,19,1),(31,1,19,2),(32,1,19,3),(33,1,20,1),(34,1,20,2),(35,1,20,3),(36,1,21,2),(37,1,21,10),(38,1,21,11),(39,5,22,1),(40,4,22,2),(41,4,22,5),(42,6,22,7),(43,5,22,10),(44,4,23,8),(45,1,23,10),(46,2,23,11),(47,5,23,19),(48,1,24,1),(49,1,24,3),(50,1,24,2),(51,1,24,5),(52,1,24,4),(53,1,24,6),(54,1,24,7),(55,1,24,8),(56,1,24,9),(57,1,24,10),(58,1,24,11),(59,1,24,19),(60,3,25,1),(61,3,25,2),(62,1,25,3),(63,1,25,4),(64,1,25,5),(65,1,25,6),(66,2,25,7),(67,1,25,8),(68,1,25,9),(69,1,25,10),(70,2,25,11),(71,1,25,19),(72,1,26,3),(73,1,26,2),(74,1,27,1),(75,1,27,2),(76,1,27,3);
 /*!40000 ALTER TABLE `pedido_detalle` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuario` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `nombre_usuario` varchar(255) DEFAULT NULL,
+  `clave` varchar(255) NOT NULL,
+  `rol` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombreUsuario` (`nombre_usuario`),
+  CONSTRAINT `usuario_chk_1` CHECK ((`rol` in (_utf8mb4'Admin',_utf8mb4'Operador',_utf8mb4'Visor')))
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'admin','$2a$10$D9QcO.A2y9UVi1QzVv5OeORFwSzEzA1cFGTg8D2Kn1TgphcfvV/O2','Admin'),(2,'operador','$2a$10$7QVXGx5ZDDjJ5vsm9DP6EO1ISptXt/ptQdF0fD2TxZTcXe1Oa9S9y','Operador'),(3,'visor','$2a$10$IGXn9bPdMJ14DDh8EJv0xuCwA0xY8iZbQ.OWZxPsoYrygIuDJd3fO','Visor'),(4,'pepe','pepeloco','Admin'),(5,'juanito22sd3','$2a$12$N3eOW0tXtQa8RcrOiTDZAuJkLlA2qAs9nCaDn5kovgCqDihe3Pat6','admin'),(6,'juanitotomba18','$2a$12$ZFVY0Ttr29KSbbx/mq5qBu8y8S8cPYFnt.WT5lJTTUKZfzLq0kOiW','Admin'),(7,'juanmatombino18','$2a$12$Rw81Rvc/1IexjwuB5RodeO7hfyKcsUCMdFyi.nBzH4dM66WrQaZ0K','Admin'),(8,'Juanma123','$2a$12$uHWCrQBRyiIT1.XOcKxGCuYLSLoj92swHDoY/EfM0cP.h5zmkJyfy','Admin'),(9,'juanitomba12','$2a$12$OGEyq8MoD2RmggxlxoW.ROSg.mbGCKgA3HkjG4cTmh0ucCAdaKruy','Visor'),(10,'jejejoja12','$2a$12$pvKPgUPMh0TeI/KlG3jscOQ5J.X6v/f9NLjlMrEtTe4N1laEWhwIC','Visor'),(11,'Pepegrillo','$2a$12$Ws7kELT9FB8EwX1O1WMulO2lnTARzsP66udn9QCgv0PzdWPk7An.i','Admin');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -137,4 +165,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-14 10:46:15
+-- Dump completed on 2024-05-28 16:28:10

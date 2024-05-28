@@ -7,12 +7,20 @@ const urlServer = 'http://localhost:8080/instrumentos';
 const urlCategorias = 'http://localhost:8080/categorias';
 const urlPedidos = 'http://localhost:8080/guardar-pedido';
 const urlUltimoPedido = 'http://localhost:8080/pedidos/ultimo';
+const token = localStorage.getItem('token');
+
+if (token) {
+    console.log('Token recuperado:', token);
+} else {
+    console.error('Token no encontrado en localStorage');
+}
 
 export async function getInstrumentosJSONFetch(): Promise<Instrumento[]> {
     try {
         const response = await fetch(urlServer, {
             method: 'GET',
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
@@ -34,6 +42,7 @@ export async function getCategorias(): Promise<CategoriaInstrumento[]> {
         const response = await fetch(urlCategorias, {
             method: 'GET',
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
@@ -58,6 +67,7 @@ export async function getInstrumentoByIdFetch(id: number): Promise<Instrumento> 
         const response = await fetch(urlInstrumento, {
             method: 'GET',
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
@@ -78,6 +88,7 @@ export async function crearInstrumento(instrumento: Instrumento): Promise<void> 
         const response = await fetch(urlServer, {
             method: 'POST',
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
@@ -98,6 +109,7 @@ export async function actualizarInstrumento(instrumento: Instrumento): Promise<v
         const response = await fetch(urlInstrumento, {
             method: 'PUT',
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
@@ -118,6 +130,7 @@ export async function borrarInstrumento(id: number): Promise<void> {
         const response = await fetch(urlInstrumento, {
             method: 'DELETE',
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Access-Control-Allow-Origin': '*'
             }
         });
@@ -136,6 +149,7 @@ export async function guardarPedidoEnBD(detallesPedido: PedidoDetalle[]): Promis
         const response = await fetch(urlPedidos, {
             method: 'POST',
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
@@ -156,6 +170,7 @@ export async function recuperarIdPedido(): Promise<number> {
         const response = await fetch(urlUltimoPedido, {
             method: 'GET',
             headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             }
@@ -188,6 +203,7 @@ export async function createPreferenceMP(pedido: Pedido) {
     const response = await fetch('http://localhost:8080/create-preference-mp', {
         method: 'POST',
         headers: {
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(pedido),

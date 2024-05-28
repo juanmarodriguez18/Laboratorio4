@@ -23,7 +23,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'com.mercadopago:sdk-java:2.1.17' // Dependencia de Mercado Pago
+    implementation 'com.mercadopago:sdk-java:2.1.24'// Dependencia de Mercado Pago
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'com.nimbusds:nimbus-jose-jwt:9.23'
+    testImplementation 'org.springframework.security:spring-security-test'
 
 }
 
