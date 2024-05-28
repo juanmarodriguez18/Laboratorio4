@@ -1,50 +1,68 @@
-// AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { login, logout } from '../servicios/authService';
 
-// Definir el tipo para el contexto
-interface AuthContextType {
-  isLoggedIn: boolean;
-  login: (token: string) => void;
-  logout: () => void;
+interface Usuario {
+    nombreUsuario: string;
+    clave: string;
+    id: number;
+    rol: string;
 }
 
-// Crear el contexto
-const AuthContext = createContext<AuthContextType>({
-  isLoggedIn: false,
-  login: () => {},
-  logout: () => {},
-});
+interface AuthContextType {
+    isLoggedIn: boolean;
+    usuario: Usuario | null;
+    login: (nombreUsuario: string, clave: string) => Promise<void>;
+    logout: () => void;
+}
 
-// Componente proveedor del contexto
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-  // Al montar el componente, verificar si hay un usuario logeado
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth debe ser usado dentro de un AuthProvider');
     }
-  }, []);
-
-  // Función para iniciar sesión
-  const login = (token: string) => {
-    localStorage.setItem('token', token);
-    setIsLoggedIn(true);
-  };
-
-  // Función para cerrar sesión
-  const logout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-  };
-
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+    return context;
 };
 
-// Hook personalizado para usar el contexto
-export const useAuth = (): AuthContextType => useContext(AuthContext);
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [usuario, setUsuario] = useState<Usuario | null>(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLoggedIn(true);
+            const usuarioLocalStorage = localStorage.getItem('usuario');
+            if (usuarioLocalStorage) {
+                setUsuario(JSON.parse(usuarioLocalStorage));
+            }
+        }
+    }, []);
+
+    const handleLogin = async (nombreUsuario: string, clave: string) => {
+        try {
+            const usuarioLogueado = await login(nombreUsuario, clave);
+            setIsLoggedIn(true);
+            setUsuario(usuarioLogueado);
+        } catch (error) {
+            console.error('Error al iniciar sesión:', error);
+            throw new Error('Usuario y/o Clave incorrectos, vuelva a intentar');
+        }
+    };
+
+    const handleLogout = () => {
+        logout();
+        setIsLoggedIn(false);
+        setUsuario(null);
+    };
+
+    const contextValue = {
+        isLoggedIn,
+        usuario,
+        login: handleLogin,
+        logout: handleLogout,
+    };
+
+    return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+};

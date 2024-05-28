@@ -33,4 +33,4 @@ export async function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     // Limpiar cualquier otro estado relacionado con la sesión aquí si es necesario
-  }
+}
