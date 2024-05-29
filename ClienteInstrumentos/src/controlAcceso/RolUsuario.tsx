@@ -4,21 +4,20 @@ import { Roles } from '../entidades/Roles';
 import Usuario from '../entidades/Usuario';
 
 interface Props {
-    rol: Roles;
+    rol: Roles[];
 }
 
 function RolUsuario({ rol }: Props) {
-  
-    const [jsonUsuario, setJSONUsuario] = useState<any>(localStorage.getItem('usuario'));
-    const usuarioLogueado:Usuario = JSON.parse(jsonUsuario) as Usuario;
-    //si esta logueado y es administrador lo dejo ingresar si no
-    if((usuarioLogueado && usuarioLogueado.rol === rol)){
+    const [jsonUsuario, setJSONUsuario] = useState<string | null>(localStorage.getItem('usuario'));
+    const usuarioLogueado: Usuario | null = jsonUsuario ? JSON.parse(jsonUsuario) as Usuario : null;
+
+    if (usuarioLogueado && rol.includes(usuarioLogueado.rol)) {
         return <Outlet />;
-    }else if(usuarioLogueado){
+    } else if (usuarioLogueado) {
         return <Navigate replace to='/grilla' />;
-    }else{
+    } else {
         return <Navigate replace to='/login' />;
     }
-    
 }
+
 export default RolUsuario;

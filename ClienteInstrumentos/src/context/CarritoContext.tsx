@@ -1,4 +1,3 @@
-// CarritoContext.tsx
 import { ReactNode, createContext, useEffect, useState } from 'react';
 import Instrumento from '../entidades/Instrumento';
 
@@ -34,7 +33,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [totalPedido, setTotalPedido] = useState<number>(0);
 
-  // Persistir el carrito en el almacenamiento local
+  // Cargar el carrito desde localStorage una vez cuando el componente se monta
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
@@ -42,6 +41,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // Actualizar localStorage y recalcular el total cuando el carrito cambie
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
     calcularTotalCarrito();
@@ -56,7 +56,6 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
     } else {
       setCart(prevCart => [...prevCart, { instrumento: product, cantidad: 1 }]);
     }
-    calcularTotalCarrito();
   };
 
   const updateCarrito = (instrumento: Instrumento, cantidad: number) => {
@@ -72,7 +71,6 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
 
   const removeCarrito = (product: Instrumento) => {
     setCart(prevCart => prevCart.filter(item => item.instrumento.instrumento_id !== product.instrumento_id));
-    calcularTotalCarrito();
   };
 
   const removeItemCarrito = (product: Instrumento) => {
@@ -89,13 +87,11 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
       } else {
         setCart(prevCart => prevCart.filter(item => item.instrumento.instrumento_id !== product.instrumento_id));
       }
-      calcularTotalCarrito();
     }
   };
 
   const limpiarCarrito = () => {
     setCart([]);
-    calcularTotalCarrito();
   };
 
   const calcularTotalCarrito = () => {
@@ -106,11 +102,9 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
     setTotalPedido(total);
   };
 
-
   return (
     <CartContext.Provider value={{ cart, addCarrito, updateCarrito, limpiarCarrito, removeCarrito, removeItemCarrito, totalPedido }}>
       {children}
     </CartContext.Provider>
   );
-
 }

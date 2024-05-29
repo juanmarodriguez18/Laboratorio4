@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import carritoIcono from '../../img/carrito-icono.png';
 import { useAuth } from '../controlAcceso/AuthContext';
+import { CartContext } from '../context/CarritoContext';
+import Usuario from '../entidades/Usuario';
+import { Roles } from '../entidades/Roles';
 
 const Encabezado: React.FC = () => {
     const { isLoggedIn, usuario, logout } = useAuth();
     const navigate = useNavigate();
+    const { cart } = useContext(CartContext);
+    const totalItemsEnCarrito = cart.reduce((total, item) => total + item.cantidad, 0);
+    const [jsonUsuario, setJSONUsuario] = useState<any>(localStorage.getItem('usuario'));
+    const usuarioLogueado:Usuario = JSON.parse(jsonUsuario) as Usuario;
 
     const handleLogout = () => {
         logout();
@@ -27,13 +34,16 @@ const Encabezado: React.FC = () => {
                         <li className="nav-item">    
                           <Link className="nav-link" to="/productos">Productos</Link>                
                         </li>
+                        {/* Enlace visible para todos los roles excepto VISOR */}
+                        {!usuarioLogueado || usuarioLogueado.rol !== Roles.VISOR ? (
                         <li className="nav-item">
                           <Link className="nav-link" to="/grilla">Grilla</Link>
                         </li>
+                        ) : null}
                         <li className="nav-item">
                           <Link className="nav-link" to="/carrito">
                             <img src={carritoIcono} alt="Carrito" style={{ width: '24px', height: '24px', marginRight: '5px' }} />
-                              Carrito
+                              Carrito ({totalItemsEnCarrito})
                           </Link>
                         </li>
                         <li className="nav-item">

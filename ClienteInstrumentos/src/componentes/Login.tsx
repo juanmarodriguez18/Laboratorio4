@@ -16,6 +16,7 @@ const Login: React.FC = () => {
             await login(nombreUsuario, clave);
             setError('');
             navigate('/home'); // Redirigir a la página de productos
+            window.location.reload();
         } catch (error) {
             setError('Usuario y/o Clave incorrectos, vuelva a intentar');
         }

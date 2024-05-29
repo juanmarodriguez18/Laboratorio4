@@ -20,6 +20,7 @@ function GrillaInstrumentos() {
             setCategorias(categoriasData);
         }
         fetchData();
+        
     }, []);
 
     const obtenerCategorias = (instrumentos: Instrumento[]): string[] => {
