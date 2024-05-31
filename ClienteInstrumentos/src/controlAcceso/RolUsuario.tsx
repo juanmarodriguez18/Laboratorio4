@@ -8,7 +8,7 @@ interface Props {
 }
 
 function RolUsuario({ rol }: Props) {
-    const [jsonUsuario, setJSONUsuario] = useState<string | null>(localStorage.getItem('usuario'));
+    const [jsonUsuario] = useState<string | null>(localStorage.getItem('usuario'));
     const usuarioLogueado: Usuario | null = jsonUsuario ? JSON.parse(jsonUsuario) as Usuario : null;
 
     if (usuarioLogueado && rol.includes(usuarioLogueado.rol)) {

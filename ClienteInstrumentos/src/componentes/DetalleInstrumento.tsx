@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Instrumento from '../entidades/Instrumento';
-import { getInstrumentoByIdFetch } from '../servicios/FuncionesInstrumento';
+import { generarPdf, getInstrumentoByIdFetch } from '../servicios/FuncionesInstrumento';
 import camionIcono from '../../img/camion.png';
 import './css/DetalleInstrumento.css';
 import { useCarrito } from '../hooks/useCarrito';
@@ -61,6 +61,16 @@ function DetalleInstrumento() {
     }
   };
 
+  const handleGenerarPDF = async () => {
+    try {
+      if (instrumento) {
+        await generarPdf(instrumento);
+      }
+    } catch (error) {
+      console.error('Error al generar el PDF:', error);
+    }
+  };
+
   return (
     <div>
       {instrumento ? (
@@ -93,6 +103,9 @@ function DetalleInstrumento() {
                 <button className="btn-incrementar" onClick={handleIncrementarCantidad}>+</button>
               </div>
             )}
+
+            <button className="btn-generar-pdf" onClick={handleGenerarPDF}>Generar PDF</button>
+
           </div>
         </div>
       ) : (

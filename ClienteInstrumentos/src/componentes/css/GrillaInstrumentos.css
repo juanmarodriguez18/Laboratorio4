@@ -37,6 +37,18 @@
 .btn-primary {
     background-color: #007bff;
     color: #fff;
+    margin-left: 2%;
+}
+
+.btn-excel {
+    background-color: #199915;
+    color: #fff;
+    margin-left: 2%;
+    border: #0f6b0c;
+}
+
+.btn-excel:hover {
+    background-color: #0f6b0c;
 }
 
 .btn-info {

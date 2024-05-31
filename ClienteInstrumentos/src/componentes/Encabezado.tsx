@@ -11,7 +11,7 @@ const Encabezado: React.FC = () => {
     const navigate = useNavigate();
     const { cart } = useContext(CartContext);
     const totalItemsEnCarrito = cart.reduce((total, item) => total + item.cantidad, 0);
-    const [jsonUsuario, setJSONUsuario] = useState<any>(localStorage.getItem('usuario'));
+    const [jsonUsuario] = useState<any>(localStorage.getItem('usuario'));
     const usuarioLogueado:Usuario = JSON.parse(jsonUsuario) as Usuario;
 
     const handleLogout = () => {
@@ -33,6 +33,9 @@ const Encabezado: React.FC = () => {
                     <>
                         <li className="nav-item">    
                           <Link className="nav-link" to="/productos">Productos</Link>                
+                        </li>
+                        <li className="nav-item">    
+                          <Link className="nav-link" to="/googlecharts">Google Charts</Link>                
                         </li>
                         {/* Enlace visible para todos los roles excepto VISOR */}
                         {!usuarioLogueado || usuarioLogueado.rol !== Roles.VISOR ? (

@@ -3,6 +3,7 @@ package org.example.instrumentosbackspring.Entities;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Date fechaPedido;
+    private LocalDate fechaPedido;
     private double totalPedido;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
@@ -22,12 +23,12 @@ public class Pedido {
     }
 
     // Constructor sin detalles
-    public Pedido(Date fechaPedido, double totalPedido) {
+    public Pedido(LocalDate fechaPedido, double totalPedido) {
         this.fechaPedido = fechaPedido;
         this.totalPedido = totalPedido;
     }
 
-    public Pedido(long id, Date fechaPedido, double totalPedido, List<PedidoDetalle> detalles) {
+    public Pedido(long id, LocalDate fechaPedido, double totalPedido, List<PedidoDetalle> detalles) {
         this.id = id;
         this.fechaPedido = fechaPedido;
         this.totalPedido = totalPedido;
@@ -42,11 +43,11 @@ public class Pedido {
         this.id = id;
     }
 
-    public Date getFechaPedido() {
+    public LocalDate getFechaPedido() {
         return fechaPedido;
     }
 
-    public void setFechaPedido(Date fechaPedido) {
+    public void setFechaPedido(LocalDate fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
 

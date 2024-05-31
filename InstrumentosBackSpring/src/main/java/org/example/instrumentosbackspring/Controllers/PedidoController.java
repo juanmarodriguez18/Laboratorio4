@@ -6,13 +6,15 @@ import org.example.instrumentosbackspring.Entities.PedidoDetalle;
 import org.example.instrumentosbackspring.Repositories.InstrumentoRepository;
 import org.example.instrumentosbackspring.Repositories.PedidoDetalleRepository;
 import org.example.instrumentosbackspring.Repositories.PedidoRepository;
+import org.example.instrumentosbackspring.dto.OrdersByInstrumentDTO;
+import org.example.instrumentosbackspring.dto.OrdersByMonthDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -75,7 +77,7 @@ public class PedidoController {
     public ResponseEntity<String> guardarPedido(@RequestBody List<PedidoDetalle> detallesPedido) {
         try {
             Pedido pedido = new Pedido();
-            pedido.setFechaPedido(new Date());
+            pedido.setFechaPedido(LocalDate.now());
 
             double totalPedido = 0.0;
 
@@ -134,6 +136,18 @@ public class PedidoController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
+    }
+
+    @GetMapping("/pedidos/by-month")
+    public ResponseEntity<List<OrdersByMonthDTO>> getOrdersByMonth() {
+        List<OrdersByMonthDTO> orders = pedidoRepository.findOrdersGroupedByMonth();
+        return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/pedidos/by-instrument")
+    public ResponseEntity<List<OrdersByInstrumentDTO>> getOrdersByInstrument() {
+        List<OrdersByInstrumentDTO> orders = pedidoRepository.findOrdersGroupedByInstrument();
+        return ResponseEntity.ok(orders);
     }
 
 

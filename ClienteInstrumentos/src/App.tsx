@@ -9,6 +9,7 @@ import Home from './componentes/Home';
 import DondeEstamos from './componentes/DondeEstamos';
 import RolUsuario from './controlAcceso/RolUsuario';
 import { Roles } from './entidades/Roles';
+import ChartsGoogle from './componentes/ChartsGoogle';
 
 
 const Productos = lazy(() => import('./componentes/Productos'));
@@ -30,8 +31,9 @@ function App() {
                         <Route path="/dondeestamos" element={<DondeEstamos />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/carrito" element={<RutaPrivada><Carrito /></RutaPrivada>} />
 
+                        <Route path="/googlecharts" element={<RutaPrivada><ChartsGoogle /></RutaPrivada>} />
+                        <Route path="/carrito" element={<RutaPrivada><Carrito /></RutaPrivada>} />
                         <Route path="/instrumentos" element={<RutaPrivada><ListaInstrumentos /></RutaPrivada>} />
                         <Route path="/instrumento/:id" element={<RutaPrivada><DetalleInstrumento /></RutaPrivada>} />
                         <Route path="/productos" element={<RutaPrivada><Productos /></RutaPrivada>} />

@@ -4,12 +4,13 @@ import { getInstrumentosJSONFetch, borrarInstrumento } from '../servicios/Funcio
 import './css/GrillaInstrumentos.css'
 import { Roles } from '../entidades/Roles';
 import Usuario from '../entidades/Usuario';
+import GenerarExcelButton from './GenerarExcelButton';
 
 function GrillaInstrumentos() {
     const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
     const [categorias, setCategorias] = useState<string[]>([]);
     const [filtroCategoria, setFiltroCategoria] = useState<string>('');
-    const [jsonUsuario, setJSONUsuario] = useState<any>(localStorage.getItem('usuario'));
+    const [jsonUsuario] = useState<any>(localStorage.getItem('usuario'));
     const usuarioLogueado:Usuario = JSON.parse(jsonUsuario) as Usuario;
 
     useEffect(() => {
@@ -57,6 +58,7 @@ function GrillaInstrumentos() {
                 {(usuarioLogueado.rol === Roles.ADMIN) &&
                     <a className="btn btn-primary" href={`/formulario/0`}>Nuevo</a>
                 }
+                <GenerarExcelButton />
                 <div className="filtro-categoria">
                     <select value={filtroCategoria} onChange={handleCategoriaChange}>
                         <option value="">Todas las categorías</option>

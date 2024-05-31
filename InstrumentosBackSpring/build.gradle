@@ -28,6 +28,13 @@ dependencies {
     implementation 'com.nimbusds:nimbus-jose-jwt:9.23'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    // Apache POI dependencies
+    implementation 'org.apache.poi:poi:5.2.3'
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+
+    // iText dependencies
+    implementation 'com.lowagie:itext:2.1.7'
+
 }
 
 tasks.named('test') {
