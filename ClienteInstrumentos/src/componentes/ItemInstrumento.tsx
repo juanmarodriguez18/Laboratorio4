@@ -66,9 +66,6 @@ const ItemInstrumento: React.FC<InstrumentoProps> = ({ instrumento }) => {
           <p className="costo-envio">Costo de Envío Interior de Argentina: ${instrumento.costoEnvio}</p>
         )}
         <p>{instrumento.cantidadVendida} vendidos</p>
-        <Link to={`/instrumento/${instrumento.instrumento_id}`}>
-          <button>Ver Detalle</button>
-        </Link>
         <div className="btn-container">
           {cantidad === 0 ? (
             <button className="btn-agregar-carrito" onClick={handleAgregarAlCarrito}>Agregar al Carrito</button>
@@ -79,6 +76,9 @@ const ItemInstrumento: React.FC<InstrumentoProps> = ({ instrumento }) => {
               <button className="btn-incrementar" onClick={handleIncrementarCantidad}>+</button>
             </div>
           )}
+          <Link to={`/instrumento/${instrumento.instrumento_id}`}>
+            <button className="btn-ver-detalle" >Ver Detalle</button>
+          </Link>
         </div>
       </div>
     </div>

@@ -86,6 +86,38 @@
     background-color: #0056b3;
   }
 
+  .btn-generar-pdf {
+    background-color: #f7ea3c;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 5px; /* Añade espacio arriba del botón */
+  }
+
+  .btn-generar-pdf:hover {
+    background-color: #c0b407;
+  }
+
+  .btn-ver-detalle {
+    background-color: #aaebe2;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 5px; /* Añade espacio arriba del botón */
+  }
+
+  .btn-ver-detalle:hover {
+    background-color: #22cebf;
+  }
+
   .detalle-header {
     background-color: rgb(250, 249, 252);
   }
@@ -106,9 +138,26 @@
     border: 1px solid #ccc;
     padding: 5px 10px;
     cursor: pointer;
+    border-radius: 8px;
   }
   
   span {
     margin: 0 10px;
+  }
+
+  .instrumento {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    flex-direction: row;
+  }
+
+  .botones-container {
+    display: flex;
+    align-items: center;
   }
   
